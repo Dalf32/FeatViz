@@ -1,0 +1,13 @@
+.node {
+    cursor: pointer;
+    user-select: none;
+}
+
+.selected_node ellipse {
+    stroke: purple;
+    stroke-width: 3px;
+}
+
+.selected_node text {
+    font-weight: bold;
+}

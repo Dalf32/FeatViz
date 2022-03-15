@@ -1,0 +1,52 @@
+<%= stylesheet 'featviz', 'graphs' %>
+<%= javascript 'graphs' %>
+
+<div id="header_div" class="header_frame">
+  <h1 class="page_heading">FeatViz</h1>
+  <%=
+    form_for :feats, routes.create_feats_path do
+      div class: 'top_right' do
+        label "#{num_feats} Feats, #{num_prereqs} Prerequisites in database", for: 'submit'
+        submit 'Rebuild Database' if admin_mode
+      end
+    end
+  %>
+</div>
+<div id="content_div" class="home_content">
+  <div id="graph_div" class="graph_frame">
+    <span id="zoomValue" style="float: right;">100%</span>
+    <%= graph %>
+  </div>
+  <div id="info_div" class="info_frame">
+    <div id="feat_search_div" class="feat_search_frame max_width">
+      <input id="feat_search" type="text" onkeyup="onSearchKeyPress(event)">
+      <button id="feat_search_button" onclick="onSearchClick()">Search</button>
+      <ul id="feat_search_list" class="feat_search_results_list" style="display: none;"></ul>
+    </div>
+    <br/>
+    <a id="feat_name" class="feat_title" target="_blank"></a>
+    <br/>
+    <span id="feat_combat" style="display: none;" class="feat_flag">Combat</span>
+    <span id="feat_armor_mastery" style="display: none;" class="feat_flag">Armor Mastery</span>
+    <span id="feat_shield_mastery" style="display: none;" class="feat_flag">Shield Mastery</span>
+    <span id="feat_weapon_mastery" style="display: none;" class="feat_flag">Weapon Mastery</span>
+    <br/>
+    <span id="feat_prerequisites" class="feat_prerequisites"></span>
+    <br/>
+    <span id="feat_description" class="feat_description"></span>
+    <br/>
+    <div id="feat_requisites_div" class="feat_requisites_frame" style="display: none">
+      <span id="feat_requisites_toggle" class="feat_requisites_toggle" toggle_indicator="+ " onclick="toggleRequisites()">Requisites</span>
+      <ul id="feat_requisites_list" class="feat_requisites_list" style="display: none"></ul>
+    </div>
+
+    <%=
+      form_for :graph, routes.create_graph_path do
+        div class: 'bottom max_width_with_pad' do
+          hidden_field :feat
+          submit 'Show Graph', id: 'submit_button', class: 'max_width', style: 'display: none;'
+        end
+      end
+    %>
+  </div>
+</div>

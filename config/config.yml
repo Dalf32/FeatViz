@@ -1,0 +1,5 @@
+---
+base_url: 'https://aonprd.com'
+feats_page: 'Feats.aspx'
+admin_mode: true
+...

@@ -1,0 +1,130 @@
+html {
+    background-color: darkgrey;
+}
+
+.home_content {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    grid-column-gap: 5px;
+}
+
+.header_frame {
+    position: relative;
+}
+
+.page_heading {
+    text-shadow: 1px 1px 5px white;
+}
+
+.graph_frame {
+    text-align: center;
+    overflow: auto;
+    background-color: grey;
+    border: black solid 2px;
+}
+
+.info_frame {
+    border: black solid 2px;
+    position: relative;
+    padding: 1%;
+}
+
+.top_right {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.bottom {
+    position: absolute;
+    bottom: .5%;
+}
+
+.max_width {
+    width: 100%;
+}
+
+.max_width_with_pad {
+    width: 98%;
+}
+
+.feat_search_frame {
+    display: grid;
+    grid-template-columns: 75% 25%;
+}
+
+.feat_search_results_list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    grid-column-end: span 2;
+    border: solid black;
+    border-width: 0 1px 1px 1px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.feat_search_result {
+    padding: 3px 10px 3px 10px;
+    cursor: pointer;
+    border-top: 1px dotted black;
+}
+
+.feat_search_result:hover {
+    background-color: lightblue;
+}
+
+.feat_title {
+    font-size: xx-large;
+    color: black;
+}
+
+.feat_flag {
+    font-style: italic;
+    border: black solid 1px;
+    width: max-content;
+    padding: 2px;
+}
+
+.feat_prerequisites {
+    padding-top: 10px;
+}
+
+.feat_description {
+    padding-top: 20px;
+    font-size: large;
+}
+
+.feat_link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.feat_requisites_frame {
+    margin-top: 20px;
+}
+
+.feat_requisites_toggle {
+    cursor: pointer;
+}
+
+.feat_requisites_toggle::before {
+    content: attr(toggle_indicator);
+    font-weight: bold;
+    font-size-adjust: 0.65;
+    font-family: monospace;
+}
+
+.feat_requisites_list {
+    list-style: none;
+    border-top: solid black 1px;
+    padding-top: 5px;
+    margin-top: 5px;
+    overflow: auto;
+    max-height: 250px;
+}
+
+.feat_requisite {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

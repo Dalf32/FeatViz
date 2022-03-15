@@ -1,0 +1,3 @@
+project=featviz
+test=rspec
+template=erb
