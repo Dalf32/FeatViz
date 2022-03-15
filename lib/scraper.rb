@@ -11,8 +11,9 @@ require_relative 'scraped_feat'
 
 class Scraper
   def self.scrape(url)
-    # TODO: This line is very bad definitely change it
-    feats_html = open(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
+    opts = {}
+    opts[:ssl_verify_mode] = OpenSSL::SSL::VERIFY_NONE if configatron.ssl_verify_none
+    feats_html = open(url, **opts)
     feats_doc = Oga.parse_html(feats_html)
 
     feats_doc.xpath('//table/tr/td').each_slice(3).map do |row|
