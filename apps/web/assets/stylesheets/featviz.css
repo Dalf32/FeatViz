@@ -21,6 +21,7 @@ html {
     overflow: auto;
     background-color: grey;
     border: black solid 2px;
+    cursor: move;
 }
 
 .info_frame {
@@ -127,4 +128,10 @@ html {
 .feat_requisite {
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.show_graph_button {
+    height: 50px;
+    font-size: large;
+    font-variant: small-caps;
 }
