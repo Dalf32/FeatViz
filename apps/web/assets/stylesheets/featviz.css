@@ -13,15 +13,7 @@ html {
 }
 
 .page_heading {
-    text-shadow: 1px 1px 5px white;
-}
-
-.graph_frame {
-    text-align: center;
-    overflow: auto;
-    background-color: grey;
-    border: black solid 2px;
-    cursor: move;
+    text-shadow: 1px 1px 5px aliceblue;
 }
 
 .info_frame {

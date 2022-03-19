@@ -1,3 +1,12 @@
+.graph_frame {
+    text-align: center;
+    overflow: auto;
+    background-color: grey;
+    border: black solid 2px;
+    cursor: move;
+    position: relative;
+}
+
 .node {
     cursor: pointer;
     user-select: none;
@@ -10,4 +19,17 @@
 
 .selected_node text {
     font-weight: bold;
+}
+
+.zoom_value {
+    float: right;
+    background: aliceblue;
+    border-radius: 5px;
+    padding: 2px;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: large;
+    margin: 2px;
+    position: absolute;
+    right: 0;
 }
