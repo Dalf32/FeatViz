@@ -12,6 +12,9 @@
     end
   %>
 </div>
+<div id="modal_container" class="modal_background" style="display: none">
+  <span class="modal">Generating Graph...</span>
+</div>
 <div id="content_div" class="home_content">
   <div id="graph_div" class="graph_frame">
     <span id="zoomValue" style="float: right;">100%</span>
@@ -44,7 +47,7 @@
       form_for :graph, routes.create_graph_path do
         div class: 'bottom max_width_with_pad' do
           hidden_field :feat
-          submit 'Show Graph', id: 'submit_button', class: 'max_width show_graph_button', style: 'display: none;'
+          submit 'Show Graph', id: 'submit_button', class: 'max_width show_graph_button', style: 'display: none;', onclick: 'showModal()'
         end
       end
     %>

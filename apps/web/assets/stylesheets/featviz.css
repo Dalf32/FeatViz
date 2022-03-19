@@ -135,3 +135,24 @@ html {
     font-size: large;
     font-variant: small-caps;
 }
+
+.modal_background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+    position: absolute;
+    left: 30%;
+    top: 40%;
+    border: 2px outset black;
+    background: #CC6666;
+    padding: 75px;
+    font-family: monospace;
+    font-size: x-large;
+}

@@ -230,6 +230,11 @@ function toggleRequisites(forceCollapse = false) {
     }
 }
 
+function showModal() {
+    let modal = document.getElementById('modal_container');
+    modal.style.display = 'block';
+}
+
 function setupSvgScrollAndPan() {
     const svgContainer = document.getElementById('graph_div');
     const svgImage = svgContainer.getElementsByTagName('svg')[0];
