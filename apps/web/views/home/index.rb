@@ -5,7 +5,8 @@ module Web
         include Web::View
 
         def has_graph
-          SessionDataRepository.new.has_graph?(session.id.to_s)
+          configatron.allow_download &&
+            SessionDataRepository.new.has_graph?(session.id.to_s)
         end
 
         def graph
