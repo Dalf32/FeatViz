@@ -1,4 +1,8 @@
 class SessionDataRepository < Hanami::Repository
+  def has_graph?(session_id)
+    !session_data.where(id: session_id).where { graph_data.not(nil) }.count.zero?
+  end
+
   def graph_for_id(session_id)
     session_data.where(id: session_id).pluck(:graph_data).first
   end

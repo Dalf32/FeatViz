@@ -4,6 +4,10 @@ module Web
       class Index
         include Web::View
 
+        def has_graph
+          SessionDataRepository.new.has_graph?(session.id.to_s)
+        end
+
         def graph
           session_repo = SessionDataRepository.new
           session_repo.touch_record(session.id.to_s)
@@ -29,6 +33,10 @@ module Web
               <text text-anchor="middle" x="750" y="375">Search for a Feat to get started</text>
             </svg>
           SVG
+        end
+
+        def download_graph_form
+          Form.new(:graph, routes.download_graph_path, {}, { method: :get })
         end
       end
     end

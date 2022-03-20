@@ -138,6 +138,7 @@ GEM
     rgl (0.5.7)
       lazy_priority_queue (~> 0.1.0)
       stream (~> 0.5.3)
+    rmagick (4.2.4)
     rom (3.3.3)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.3)
@@ -200,6 +201,7 @@ DEPENDENCIES
   oga
   rake
   rgl
+  rmagick
   rspec
   shotgun
   sqlite3

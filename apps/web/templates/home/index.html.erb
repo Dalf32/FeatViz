@@ -19,6 +19,11 @@
   <div id="graph_div" class="graph_frame">
     <span id="zoomValue" class="zoom_value">100%</span>
     <%= graph %>
+    <%=
+      form_for download_graph_form, target: '_blank' do
+        submit 'Download', class: 'download_button' if has_graph
+      end
+    %>
   </div>
   <div id="info_div" class="info_frame">
     <div id="feat_search_div" class="feat_search_frame max_width">

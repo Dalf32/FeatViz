@@ -6,6 +6,7 @@ gem 'hanami-model', '~> 1.3'
 gem 'oga'
 gem 'rake'
 gem 'rgl'
+gem 'rmagick'
 gem 'sqlite3'
 
 group :development do

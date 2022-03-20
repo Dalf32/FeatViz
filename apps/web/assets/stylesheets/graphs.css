@@ -21,8 +21,7 @@
     font-weight: bold;
 }
 
-.zoom_value {
-    float: right;
+.zoom_value, .download_button {
     background: aliceblue;
     border-radius: 5px;
     padding: 2px;
@@ -31,5 +30,14 @@
     font-size: large;
     margin: 2px;
     position: absolute;
+    top: 0;
+}
+
+.zoom_value {
     right: 0;
+}
+
+.download_button {
+    left: 0;
+    cursor: pointer;
 }
