@@ -239,7 +239,7 @@ function setupSvgScrollAndPan() {
     const svgContainer = document.getElementById('graph_div');
     const svgImage = svgContainer.getElementsByTagName('svg')[0];
 
-    var viewBox = { x:0, y:0, w:svgImage.clientWidth, h:svgImage.clientHeight };
+    var viewBox = { x:-150, y:-50, w:svgImage.clientWidth, h:svgImage.clientHeight };
     svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
     const svgSize = { w:svgImage.clientWidth, h:svgImage.clientHeight };
     var isPanning = false;
