@@ -4,4 +4,6 @@ feats_page: 'Feats.aspx'
 admin_mode: false
 ssl_verify_none: false
 allow_download: true
+#magick_font: 'Comic Sans'
+debug_magick: false
 ...

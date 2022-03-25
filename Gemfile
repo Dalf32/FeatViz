@@ -3,10 +3,10 @@ source 'https://rubygems.org'
 gem 'configatron'
 gem 'hanami',       '~> 1.3'
 gem 'hanami-model', '~> 1.3'
+gem 'mini_magick'
 gem 'oga'
 gem 'rake'
 gem 'rgl'
-gem 'rmagick'
 gem 'sqlite3'
 
 group :development do
