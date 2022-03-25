@@ -10,7 +10,7 @@ module Web
 
           MiniMagick.logger.level = Logger::DEBUG if configatron.debug_magick
           MiniMagick::Tool::Convert.new.tap do |convert|
-            convert.font("\"#{configatron.magick_font}\"") if configatron.has_key?(:magick_font)
+            convert.font("#{configatron.magick_font}") if configatron.has_key?(:magick_font)
             convert << 'svg:-'
             convert << 'png:-'
           end.call(stdin: graph_data) do |graph_png_data, _err, _status|
