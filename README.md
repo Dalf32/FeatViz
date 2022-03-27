@@ -1,33 +1,11 @@
-# Featviz
+# FeatViz
 
-Welcome to your new Hanami project!
+Simple Ruby web application for graphically browsing
+[Pathfinder](https://www.aonprd.com) feats built with
+[Hanami](https://hanamirb.org/). 
 
-## Setup
-
-How to run tests:
-
-```
-% bundle exec rake
-```
-
-How to run the development console:
-
-```
-% bundle exec hanami console
-```
-
-How to run the development server:
-
-```
-% bundle exec hanami server
-```
-
-How to prepare (create and migrate) DB for `development` and `test` environments:
-
-```
-% bundle exec hanami db prepare
-
-% HANAMI_ENV=test bundle exec hanami db prepare
-```
-
-Explore Hanami [guides](https://guides.hanamirb.org/), [API docs](http://docs.hanamirb.org/1.3.3/), or jump in [chat](http://chat.hanamirb.org) for help. Enjoy! 🌸
+### Dependencies
+Apart from the required gems, FeatViz uses [GraphViz](https://graphviz.org/) to
+generate graphs and [ImageMagick](http://imagemagick.org/) /
+[GraphicsMagick](http://www.graphicsmagick.org/) to convert graphs to PNG for
+download.
