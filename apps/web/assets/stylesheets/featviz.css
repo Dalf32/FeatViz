@@ -80,11 +80,11 @@ html {
 }
 
 .feat_prerequisites {
-    padding-top: 10px;
+    margin-top: 10px;
 }
 
 .feat_description {
-    padding-top: 20px;
+    margin-top: 20px;
     font-size: large;
 }
 
