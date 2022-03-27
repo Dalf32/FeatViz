@@ -9,19 +9,28 @@ module Web
       class Create
         include Web::Action
 
-        def call(params)
-          graph = build_feats_graph
-          feat = params[:graph][:feat]
-          filtered_graph = graph_for_feat(graph, feat)
+        def feat_repo
+          @feat_repo ||= FeatRepository.new
+        end
 
-          generate_svg(filtered_graph, "#{feat} Graph")
+        def call(params)
+          feat = params[:graph][:feat]
+          final_graph =
+            if feat_has_graph?(feat)
+              graph = build_feats_graph
+              graph_for_feat(graph, feat)
+            else
+              build_single_feat_graph(feat)
+            end
+
+          generate_svg(final_graph, "#{feat} Graph")
 
           redirect_to routes.home_path
         end
 
         def build_feats_graph
           RGL::DirectedAdjacencyGraph.new.tap do |graph|
-            FeatRepository.new.all_with_prereqs.each do |feat|
+            feat_repo.all_with_prereqs.each do |feat|
               feat.feat_prereqs.reject { |p| p.prereq_feat_id.nil? }
                   .each { |p| graph.add_edge(p.prereq_text, feat.name) }
             end
@@ -70,6 +79,19 @@ module Web
           graph_data = graph_file.read
           SessionDataRepository.new.update(session.id.to_s,
                                            graph_data: graph_data)
+        end
+
+        def feat_has_graph?(feat)
+          full_feat = feat_repo.find_by_name_with_prereqs(feat)
+          return true unless full_feat.feat_prereqs.all? { |p| p.prereq_feat_id.nil? }
+
+          !feat_repo.find_requisites_of(full_feat.id).empty?
+        end
+
+        def build_single_feat_graph(feat)
+          RGL::DirectedAdjacencyGraph.new.tap do |graph|
+            graph.add_vertex(feat)
+          end
         end
       end
     end
