@@ -6,4 +6,10 @@ ssl_verify_none: false
 allow_download: true
 #magick_font: 'Comic Sans'
 debug_magick: false
+zoom_increment: 10
+zoom_levels:
+  - 50
+  - 100
+  - 250
+  - 500
 ...

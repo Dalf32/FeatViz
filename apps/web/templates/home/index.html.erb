@@ -18,14 +18,13 @@
 <div id="content_div" class="home_content">
   <div id="graph_div" class="graph_frame">
     <div id="zoom_div" class="zoom_frame">
-      <button id="zoom_decr" class="zoom_btn" onclick="incrementZoomLevel(-10)">-</button>
+      <button id="zoom_decr" class="zoom_btn" onclick="incrementZoomLevel(-<%= zoom_increment %>)">-</button>
       <span id="zoom_value" class="zoom_value" onclick="toggleZoomDropdown()">100%</span>
-      <button id="zoom_incr" class="zoom_btn" onclick="incrementZoomLevel(10)">+</button>
+      <button id="zoom_incr" class="zoom_btn" onclick="incrementZoomLevel(<%= zoom_increment %>)">+</button>
       <ul id="zoom_opts" class="zoom_dropdown" style="display: none;">
-        <li onclick="setZoomLevel(50, true)">50%</li>
-        <li onclick="setZoomLevel(100, true)">100%</li>
-        <li onclick="setZoomLevel(250, true)">250%</li>
-        <li onclick="setZoomLevel(500, true)">500%</li>
+        <% zoom_levels.each do |zoom_level| %>
+          <li onclick="setZoomLevel(<%= zoom_level %>, true)"><%= zoom_level %>%</li>
+        <% end %>
       </ul>
     </div>
     <%= graph %>

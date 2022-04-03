@@ -25,7 +25,15 @@ module Web
         end
 
         def admin_mode
-          configatron.admin_mode
+          configatron.has_key?(:admin_mode) ? configatron.admin_mode : false
+        end
+
+        def zoom_increment
+          configatron.has_key?(:zoom_increment) ? configatron.zoom_increment : 10
+        end
+
+        def zoom_levels
+          configatron.has_key?(:zoom_levels) ? configatron.zoom_levels : [100]
         end
 
         def default_svg
