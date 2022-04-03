@@ -30,7 +30,7 @@
     <%= graph %>
     <%=
       form_for download_graph_form, target: '_blank' do
-        submit 'Download', class: 'download_button' if has_graph
+        submit 'Download', class: 'download_button' if can_download
       end
     %>
   </div>

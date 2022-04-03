@@ -5,6 +5,13 @@ module Web
         include Web::Action
 
         def call(_params)
+          rebuild_feats if configatron.admin_mode
+          redirect_to routes.home_path
+        end
+
+        private
+
+        def rebuild_feats
           feat_repo = FeatRepository.new
           url = URI.join(configatron.base_url, configatron.feats_page).to_s
 
@@ -21,11 +28,7 @@ module Web
               end
             end
           end
-
-          redirect_to routes.home_path
         end
-
-        private
 
         def feat_hash(feat)
           {

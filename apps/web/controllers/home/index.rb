@@ -4,7 +4,7 @@ module Web
       class Index
         include Web::Action
 
-        expose :has_graph, :graph, :num_feats, :num_prereqs, :admin_mode,
+        expose :can_download, :graph, :num_feats, :num_prereqs, :admin_mode,
                :zoom_increment, :zoom_levels
 
         def call(params)

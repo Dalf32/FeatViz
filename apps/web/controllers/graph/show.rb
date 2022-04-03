@@ -5,6 +5,14 @@ module Web
         include Web::Action
 
         def call(_params)
+          allow_download = configatron.has_key?(:allow_download) ?
+                             configatron.allow_download : true
+          download_graph if allow_download
+        end
+
+        private
+
+        def download_graph
           graph_data = SessionDataRepository.new.graph_for_id(session.id.to_s)
           title = /<title>(.*)<\/title>/.match(graph_data)[1]
 

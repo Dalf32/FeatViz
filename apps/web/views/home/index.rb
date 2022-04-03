@@ -4,9 +4,11 @@ module Web
       class Index
         include Web::View
 
-        def has_graph
-          configatron.allow_download &&
-            SessionDataRepository.new.has_graph?(session.id.to_s)
+        def can_download
+          allow_download = configatron.has_key?(:allow_download) ?
+                             configatron.allow_download : true
+
+          allow_download && SessionDataRepository.new.has_graph?(session.id.to_s)
         end
 
         def graph
