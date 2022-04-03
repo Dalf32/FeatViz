@@ -125,7 +125,7 @@ module Web
         # See: https://guides.hanamirb.org/assets/compressors
         #
         # In order to skip JavaScript compression comment the following line
-        javascript_compressor :builtin
+        # javascript_compressor :builtin
 
         # Stylesheet compressor
         #
@@ -138,7 +138,7 @@ module Web
         # See: https://guides.hanamirb.org/assets/compressors
         #
         # In order to skip stylesheet compression comment the following line
-        stylesheet_compressor :builtin
+        # stylesheet_compressor :builtin
 
         # Specify sources for assets
         #
@@ -231,7 +231,6 @@ module Web
         style-src 'self' 'unsafe-inline' https:;
         font-src 'self';
         object-src 'none';
-        plugin-types application/pdf;
         child-src 'self';
         frame-src 'self';
         media-src 'self'
