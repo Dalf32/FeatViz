@@ -235,61 +235,114 @@ function showModal() {
     modal.style.display = 'block';
 }
 
+function toggleZoomDropdown(forceCollapse = false) {
+    let zoomToggle = document.getElementById('zoom_value');
+    let zoomOptsList = document.getElementById('zoom_opts');
+
+    if (zoomOptsList.style.display === 'none' && !forceCollapse) {
+        zoomOptsList.style.display = 'block';
+        zoomToggle.setAttribute('class', 'zoom_value_open');
+    }
+    else {
+        zoomOptsList.style.display = 'none';
+        zoomToggle.setAttribute('class', 'zoom_value');
+    }
+}
+
+function getViewBox(svgImage) {
+    let curViewBox = svgImage.getAttribute('viewBox').split(' ');
+    return {
+        x: parseFloat(curViewBox[0]), y: parseFloat(curViewBox[1]),
+        w: parseFloat(curViewBox[2]), h: parseFloat(curViewBox[3])
+    };
+}
+
+function setViewBox(svgImage, viewBox) {
+    svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+}
+
+function getScale(svgImage) {
+    return svgImage.clientWidth / getViewBox(svgImage).w;
+}
+
+function setZoomString(zoomPercent) {
+    let zoomValue = document.getElementById('zoom_value');
+    zoomValue.innerText = `${zoomPercent}%`;
+}
+
+function incrementZoomLevel(zoomDelta) {
+    let svgImage = document.getElementById('graph_div').getElementsByTagName('svg')[0];
+    let zoomPercent = getScale(svgImage) * 100;
+
+    setZoomLevel(Math.round(zoomPercent + zoomDelta));
+}
+
+function setZoomLevel(zoomPercent) {
+    toggleZoomDropdown(true);
+    let svgImage = document.getElementById('graph_div').getElementsByTagName('svg')[0];
+    let viewBox = getViewBox(svgImage);
+
+    viewBox.w = svgImage.clientWidth / (zoomPercent / 100);
+    viewBox.h = svgImage.clientHeight / (zoomPercent / 100);
+
+    setZoomString(zoomPercent);
+    setViewBox(svgImage, viewBox);
+}
+
 function setupSvgScrollAndPan() {
     const svgContainer = document.getElementById('graph_div');
     const svgImage = svgContainer.getElementsByTagName('svg')[0];
 
-    var viewBox = { x:-150, y:-50, w:svgImage.clientWidth, h:svgImage.clientHeight };
-    svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
-    const svgSize = { w:svgImage.clientWidth, h:svgImage.clientHeight };
+    let viewBox = {
+        x: -150, y: -50,
+        w: svgImage.clientWidth, h: svgImage.clientHeight
+    };
+    setViewBox(svgImage, viewBox);
+
     var isPanning = false;
-    var startPoint = { x:0, y:0 };
-    var endPoint = { x:0, y:0 };
-    var scale = 1;
+    var startPoint = { x: 0, y: 0 };
+    var endPoint = { x: 0, y: 0 };
+    var movingViewBox = { x: 0, y: 0, w: 0, h: 0 }
 
     svgContainer.onwheel = function(e) {
         e.preventDefault();
-        let w = viewBox.w;
-        let h = viewBox.h;
-        let mx = e.offsetX;//mouse x
-        let my = e.offsetY;
-        let dw = w * Math.sign(e.deltaY) * -0.05;
-        let dh = h * Math.sign(e.deltaY) * -0.05;
-        let dx = dw * mx / svgSize.w;
-        let dy = dh * my / svgSize.h;
-        viewBox = { x:viewBox.x + dx, y:viewBox.y + dy, w:viewBox.w - dw, h:viewBox.h - dh };
-        scale = svgSize.w / viewBox.w;
-        zoomValue.innerText = `${Math.round(scale * 100)}%`;
-        svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+
+        const svgSize = { w:svgImage.clientWidth, h:svgImage.clientHeight };
+        let viewBox = getViewBox(svgImage);
+        let dw = viewBox.w * Math.sign(e.deltaY) * -0.05;
+        let dh = viewBox.h * Math.sign(e.deltaY) * -0.05;
+        let dx = dw * e.offsetX / svgSize.w;
+        let dy = dh * e.offsetY / svgSize.h;
+
+        viewBox = {
+            x: viewBox.x + dx, y: viewBox.y + dy,
+            w: viewBox.w - dw, h: viewBox.h - dh
+        };
+
+        setZoomString(Math.round((svgSize.w / viewBox.w) * 100));
+        setViewBox(svgImage, viewBox);
     }
 
     svgContainer.onmousedown = function(e){
         isPanning = true;
-        startPoint = {x:e.x,y:e.y};
+        startPoint = {x: e.x, y: e.y};
+        movingViewBox = getViewBox(svgImage);
     }
 
     svgContainer.onmousemove = function(e){
-        if (isPanning){
-            endPoint = {x:e.x,y:e.y};
-            let dx = (startPoint.x - endPoint.x)/scale;
-            let dy = (startPoint.y - endPoint.y)/scale;
-            let movedViewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w,h:viewBox.h};
-            svgImage.setAttribute('viewBox', `${movedViewBox.x} ${movedViewBox.y} ${movedViewBox.w} ${movedViewBox.h}`);
+        if (isPanning) {
+            endPoint = {x: e.x, y: e.y};
+            let scale = getScale(svgImage);
+            let dx = (startPoint.x - endPoint.x) / scale;
+            let dy = (startPoint.y - endPoint.y) / scale;
+            let movedViewBox = {
+                x: movingViewBox.x + dx, y: movingViewBox.y + dy,
+                w: movingViewBox.w, h: movingViewBox.h
+            };
+            setViewBox(svgImage, movedViewBox);
         }
     }
 
-    svgContainer.onmouseup = function(e){
-        if (isPanning){
-            endPoint = {x:e.x,y:e.y};
-            let dx = (startPoint.x - endPoint.x)/scale;
-            let dy = (startPoint.y - endPoint.y)/scale;
-            viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w,h:viewBox.h};
-            svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
-            isPanning = false;
-        }
-    }
-
-    svgContainer.onmouseleave = function(e){
-        isPanning = false;
-    }
+    svgContainer.onmouseup = function(e){ isPanning = false; }
+    svgContainer.onmouseleave = function(e){ isPanning = false; }
 }

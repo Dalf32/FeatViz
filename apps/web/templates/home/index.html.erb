@@ -17,7 +17,17 @@
 </div>
 <div id="content_div" class="home_content">
   <div id="graph_div" class="graph_frame">
-    <span id="zoomValue" class="zoom_value">100%</span>
+    <div id="zoom_div" class="zoom_frame">
+      <button id="zoom_decr" class="zoom_btn" onclick="incrementZoomLevel(-10)">-</button>
+      <span id="zoom_value" class="zoom_value" onclick="toggleZoomDropdown()">100%</span>
+      <button id="zoom_incr" class="zoom_btn" onclick="incrementZoomLevel(10)">+</button>
+      <ul id="zoom_opts" class="zoom_dropdown" style="display: none;">
+        <li onclick="setZoomLevel(50)">50%</li>
+        <li onclick="setZoomLevel(100)">100%</li>
+        <li onclick="setZoomLevel(250)">250%</li>
+        <li onclick="setZoomLevel(500)">500%</li>
+      </ul>
+    </div>
     <%= graph %>
     <%=
       form_for download_graph_form, target: '_blank' do
