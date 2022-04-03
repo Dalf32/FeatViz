@@ -265,6 +265,12 @@ function getScale(svgImage) {
     return svgImage.clientWidth / getViewBox(svgImage).w;
 }
 
+function setCenterPos(svgImage, viewBox) {
+    let svgSize = svgImage.getBBox();
+    viewBox.x = (svgSize.width / 2) - (viewBox.w / 2);
+    viewBox.y = (svgSize.height / 2) - (viewBox.h / 2);
+}
+
 function setZoomString(zoomPercent) {
     let zoomValue = document.getElementById('zoom_value');
     zoomValue.innerText = `${zoomPercent}%`;
@@ -277,13 +283,18 @@ function incrementZoomLevel(zoomDelta) {
     setZoomLevel(Math.round(zoomPercent + zoomDelta));
 }
 
-function setZoomLevel(zoomPercent) {
+function setZoomLevel(zoomPercent, autoCenter = false) {
     toggleZoomDropdown(true);
+
     let svgImage = document.getElementById('graph_div').getElementsByTagName('svg')[0];
     let viewBox = getViewBox(svgImage);
 
     viewBox.w = svgImage.clientWidth / (zoomPercent / 100);
     viewBox.h = svgImage.clientHeight / (zoomPercent / 100);
+
+    if (autoCenter) {
+        setCenterPos(svgImage, viewBox);
+    }
 
     setZoomString(zoomPercent);
     setViewBox(svgImage, viewBox);
@@ -294,14 +305,14 @@ function setupSvgScrollAndPan() {
     const svgImage = svgContainer.getElementsByTagName('svg')[0];
 
     let viewBox = {
-        x: -150, y: -50,
+        x: 0, y: 0,
         w: svgImage.clientWidth, h: svgImage.clientHeight
     };
+    setCenterPos(svgImage, viewBox);
     setViewBox(svgImage, viewBox);
 
     var isPanning = false;
     var startPoint = { x: 0, y: 0 };
-    var endPoint = { x: 0, y: 0 };
     var movingViewBox = { x: 0, y: 0, w: 0, h: 0 }
 
     svgContainer.onwheel = function(e) {
@@ -325,13 +336,13 @@ function setupSvgScrollAndPan() {
 
     svgContainer.onmousedown = function(e){
         isPanning = true;
-        startPoint = {x: e.x, y: e.y};
+        startPoint = { x: e.x, y: e.y };
         movingViewBox = getViewBox(svgImage);
     }
 
     svgContainer.onmousemove = function(e){
         if (isPanning) {
-            endPoint = {x: e.x, y: e.y};
+            let endPoint = { x: e.x, y: e.y };
             let scale = getScale(svgImage);
             let dx = (startPoint.x - endPoint.x) / scale;
             let dy = (startPoint.y - endPoint.y) / scale;

@@ -22,10 +22,10 @@
       <span id="zoom_value" class="zoom_value" onclick="toggleZoomDropdown()">100%</span>
       <button id="zoom_incr" class="zoom_btn" onclick="incrementZoomLevel(10)">+</button>
       <ul id="zoom_opts" class="zoom_dropdown" style="display: none;">
-        <li onclick="setZoomLevel(50)">50%</li>
-        <li onclick="setZoomLevel(100)">100%</li>
-        <li onclick="setZoomLevel(250)">250%</li>
-        <li onclick="setZoomLevel(500)">500%</li>
+        <li onclick="setZoomLevel(50, true)">50%</li>
+        <li onclick="setZoomLevel(100, true)">100%</li>
+        <li onclick="setZoomLevel(250, true)">250%</li>
+        <li onclick="setZoomLevel(500, true)">500%</li>
       </ul>
     </div>
     <%= graph %>
