@@ -5,10 +5,8 @@ module Web
         include Web::View
 
         def can_download
-          allow_download = configatron.has_key?(:allow_download) ?
-                             configatron.allow_download : true
-
-          allow_download && SessionDataRepository.new.has_graph?(session.id.to_s)
+          configatron.allow_download &&
+            SessionDataRepository.new.has_graph?(session.id.to_s)
         end
 
         def graph
@@ -27,15 +25,15 @@ module Web
         end
 
         def admin_mode
-          configatron.has_key?(:admin_mode) ? configatron.admin_mode : false
+          configatron.admin_mode
         end
 
         def zoom_increment
-          configatron.has_key?(:zoom_increment) ? configatron.zoom_increment : 10
+          configatron.zoom_increment
         end
 
         def zoom_levels
-          configatron.has_key?(:zoom_levels) ? configatron.zoom_levels : [100]
+          configatron.zoom_levels
         end
 
         def default_svg

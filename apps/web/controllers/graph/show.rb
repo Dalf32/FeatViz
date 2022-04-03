@@ -5,9 +5,7 @@ module Web
         include Web::Action
 
         def call(_params)
-          allow_download = configatron.has_key?(:allow_download) ?
-                             configatron.allow_download : true
-          download_graph if allow_download
+          download_graph if configatron.allow_download
         end
 
         private

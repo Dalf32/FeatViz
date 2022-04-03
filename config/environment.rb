@@ -5,9 +5,27 @@ require 'yaml'
 require_relative '../lib/featviz'
 require_relative '../apps/web/application'
 
-config_path = File.expand_path(File.dirname(__FILE__)) + "/config.yml"
-config_hash = YAML.load_file(config_path)
-configatron.configure_from_hash(config_hash)
+# Default config
+configatron.configure_from_hash(
+  {
+    base_url: 'https://aonprd.com',
+    feats_page: 'Feats.aspx',
+    admin_mode: false,
+    ssl_verify_none: false,
+    allow_download: true,
+    debug_magick: false,
+    zoom_increment: 10,
+    zoom_levels: [100]
+  }
+)
+
+begin
+  config_path = File.expand_path(File.dirname(__FILE__)) + "/config.yml"
+  config_hash = YAML.load_file(config_path)
+  configatron.configure_from_hash(config_hash)
+rescue
+  # We have a default configuration so we should be able to start
+end
 
 Hanami.configure do
   mount Web::Application, at: '/'
